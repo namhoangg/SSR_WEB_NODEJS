@@ -1,0 +1,22 @@
+mixin form-change-multi(path)
+  form(
+          action=path
+          method="POST"
+          form-change-multi
+        )
+          .d-flex.align-items-start
+            .form-group
+              select(name="type" class="form-control")
+                option(value="" disabled selected) Chọn hành động
+                option(value="active") Hoạt động 
+                option(value="inactive") Dừng hoạt động
+                option(value="delete") Xóa
+                option(value="change-position") Đổi vị trí
+            .form-group
+              input(
+                type='text'
+                name="ids"
+                value=""
+                class="form-control d-none"
+              )
+            button(type='submit' class="btn btn-primary") Áp dụng

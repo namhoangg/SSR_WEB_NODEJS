@@ -1,0 +1,57 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/filterStatus.pug
+include ../../mixins/search.pug
+include ../../mixins/formChangeMulti.pug
+include ../../mixins/table-tree.pug
+block main
+  if(role.permissions.includes("products-category_view"))
+    h1 Danh mục sản phẩm
+    +alert-success(3000)
+    +alert-error(3000)
+    .card.mb-3 
+      .card-header Bộ lọc và Tìm kiếm
+      .card-body
+        .row
+          .col-6
+            +filterStatus(filterStatus)
+          .col-6
+            +search(keyword)
+    .card.mb-3
+      .card-header Danh sách
+        .card-body
+          .row
+            .col-8
+              if(role.permissions.includes("products-category_edit"))
+                +form-change-multi(`${prefixAdmin}/category/change-multi?_method=PATCH`)
+            .col-4
+              if(role.permissions.includes("products-category_create"))
+                a(
+                  href=`${prefixAdmin}/category/create`
+                  class="btn btn-outline-success"
+                ) + Thêm mới
+
+          table(
+            class="table table-hover table-sm"
+            check-box-multi
+          )
+            thead
+              tr
+                if(role.permissions.includes("products-category_edit"))
+                  th
+                    input(type="checkbox" name="check-all")
+                th STT
+                th Hình ảnh
+                th Tiêu đề
+                th Vị trí
+                th Trạng thái
+                th Hành động
+            tbody
+              +table-tree(categories)
+    if(role.permissions.includes("products-category_edit"))
+      form(action="" method="POST" id="form-change-status" data-path=`${prefixAdmin}/category/change-status`)
+    if(role.permissions.includes("products-category_delete"))
+      form(action="" method="POST" id="form-delete" data-path=`${prefixAdmin}/category/delete`)
+    script(src="/admin/js/category.js")
+  else
+    h1 Bạn không có quyền xem trang này, vui lòng liên hệ quản trị viên

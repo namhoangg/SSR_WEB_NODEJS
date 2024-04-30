@@ -1,0 +1,30 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+block main
+  +alert-error(3000)
+  +alert-success(3000)
+
+  h1(class="mb-4") #{record.title}
+  div(class="mb-4")
+    img(
+      src=record.thumbnail 
+      style="width:150px;height:auto;"
+    )
+  div(class="mb-4") Trạng thái:
+    if (record.status=="active")
+      span(class="badge badge-success") Hoạt động
+    else
+      span(class="badge badge-danger") Dừng hoạt động
+  div(class="mb-4") Mô tả: 
+    if(record.description)
+      span(class="mt-2") 
+        <b>!{record.description}</b>
+    else 
+      span(class="mt-2") 
+        <b>Không có mô tả</b>
+  if(role.permissions.includes("products-category_edit"))
+    a(
+      href=`${prefixAdmin}/category/edit/${record.id}`
+      class="btn btn-primary"
+    ) Chỉnh sửa
+  script(src="/admin/js/record.js")

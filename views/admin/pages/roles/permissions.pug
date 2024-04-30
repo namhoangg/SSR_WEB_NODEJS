@@ -1,0 +1,54 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+block main 
+  if(role.permissions.includes("roles-permissions"))
+    +alert-success(5000)
+    h1(class="mb-4") Phân quyền
+    if(records)
+      div(class="text-right")
+        button(
+          type="submit"
+          class="btn btn-primary mb-3"
+          button-submit
+        ) Cập nhật
+      table(class="table table-hover table-sm" table-permissions)
+        thead
+          tr
+            th Tính năng
+            each item in records
+              th(class="text-center") #{item.title}
+        tbody
+          tr(data-name="id" class="d-none")
+            td 
+              each item in records
+                td(class="text-center")
+                  input(type="text" value=item.id) 
+          each permission in validPermissions
+            tr
+              td(colspan="4")
+                b #{permission.name}
+            each p in permission.permissions
+              tr(data-name=p.code)
+                td #{p.name}
+                each item in records 
+                  td(class="text-center")
+                    input(type="checkbox" checked=item.permissions.includes(p.code))
+      form(
+        class="d-none"
+        id="form-change-permissions"
+        method="POST"
+        action=`${prefixAdmin}/roles/permissions?_method=PATCH`
+      )
+        div(
+          class="form-group"
+        )
+          input(
+            type='text'
+            class="form-control"
+            name="permissions"
+          )
+    else 
+      a(class="btn btn-primary" href=`${prefixAdmin}/roles/create`) Tạo mới   
+    script(src="/admin/js/roles.js")
+  else
+    h1 Bạn không có quyền xem trang này, vui lòng liên hệ quản trị viên

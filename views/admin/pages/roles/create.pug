@@ -1,0 +1,34 @@
+extends ../../layouts/default.pug
+block main
+  if(role.permissions.includes("roles-create"))
+    +alert-error(3000)
+    +alert-success(3000)
+    h1(class="mb-4") Thêm mới nhóm quyền
+
+    form(
+      action=`${prefixAdmin}/roles/create`
+      method="POST"
+    )
+      div(class="form-group")
+        label(for="title") Tiêu đề
+        input(
+          type="text"
+          class="form-control"
+          id="title"
+          name="title"
+          required
+        )
+      div(class="form-group")
+        label(for="desc") Mô tả
+        textarea(
+          class="form-control"
+          id="desc"
+          name="description"
+        )
+      div(class="form-group")
+        button(
+          type="submit"
+          class="btn btn-primary"
+        ) Thêm mới
+  else
+    h1 Bạn không có quyền xem trang này, vui lòng liên hệ quản trị viên

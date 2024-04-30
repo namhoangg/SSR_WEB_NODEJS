@@ -1,0 +1,13 @@
+mixin sort()
+  div(sort)
+    select(
+      class="form-control"
+      name="sort"
+      sort-select
+    )
+      option(value="position-desc" selected=sort.position=="desc"?true:false) Vị trí giảm dần
+      option(value="position-asc" selected=sort.position=="asc"?true:false) Vị trí tăng dần
+      option(value="price-desc" selected=sort.price=="desc"?true:false) Giá giảm dần
+      option(value="price-asc" selected=sort.price=="asc"?true:false) Giá tăng dần
+      option(value="title-desc" selected=sort.title=="desc"?true:false) Tiêu đề Z-A
+      option(value="title-asc" selected=sort.title=="asc"?true:false) Tiêu đề A-Z

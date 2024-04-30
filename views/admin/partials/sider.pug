@@ -1,0 +1,21 @@
+.sider
+  .inner-menu 
+    ul 
+      li 
+        a(href=`${prefixAdmin}/dashboard`) Trang tổng quan
+      if(role.permissions.includes("products-category_view"))
+        li 
+          a(href=`${prefixAdmin}/category`) Danh mục sản phẩm
+      if(role.permissions.includes("products-view"))
+        li 
+          a(href=`${prefixAdmin}/products`) Danh sách sản phẩm
+      if(role.permissions.includes("roles-view"))
+        li 
+          a(href=`${prefixAdmin}/roles`) Danh sách vai trò
+      if(role.permissions.includes("roles-permissions"))
+        li 
+          a(href=`${prefixAdmin}/roles/permissions`) Danh mục phân quyền
+      if(role.permissions.includes("accounts-view"))
+        li 
+          a(href=`${prefixAdmin}/accounts`) Danh sách tài khoản quản trị
+      

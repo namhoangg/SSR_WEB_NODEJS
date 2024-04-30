@@ -1,0 +1,102 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+include ../../mixins/select-tree.pug
+block main
+  if(role.permissions.includes("products-category_edit"))
+    h1(class="mb-4") Chinh sua danh mục sản phẩm
+    +alert-success(5000)
+    +alert-error(5000)
+    form(
+      action=`${prefixAdmin}/category/edit/${record.id}?_method=PATCH`
+      method="POST"
+      enctype="multipart/form-data"
+    )
+      div(class="form-group")
+        label(for="title") Tiêu đề
+        input(
+          type="text"
+          class="form-control"
+          id="title"
+          name="title"
+          value=record.title
+          required
+        )
+      div(class="form-group")
+        label(for="parent_id") Danh mục cha
+        select(
+          name="parent_id"
+          id="parent_id"
+          class="form-control"
+        )
+          option(value="" ) -- Chọn danh mục --
+          if(category)
+            +select-tree(category,1,record.parent_id)
+      div(class="form-group")
+        label(for="desc") Mô tả
+        textarea(
+          class="form-control tinymce"
+          id="desc"
+          name="description"
+          rows="5"
+        ) !{record.description}
+      div(
+        class="form-group"
+        upload-image
+      )
+        label(for="thumbnail") Ảnh
+        input(
+          type="file"
+          class="form-control-file"
+          id="thumbnail"
+          name="thumbnail"
+          value=record.thumbnail
+          accept="image/*"
+          upload-image-input
+        )
+        img(
+          src=record.thumbnail
+          upload-image-preview
+          class="image-preview"
+        )
+      div(class="form-group")
+        label(for="position") Vị trí
+        input(
+          type="number"
+          class="form-control"
+          id="position"
+          name="position"
+          placeholder="Tự động tăng"
+          value=record.position
+          min="1"
+        )
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusActive"
+          name="status"
+          value="active"
+          checked=record.status == "active"
+        )
+        label(for="statusActive" class="form-check-label") Hoạt động
+      div(class="form-group form-check form-check-inline")
+        input(
+          type="radio"
+          class="form-check-input"
+          id="statusInActive"
+          name="status"
+          value="inactive"
+          checked=record.status == "inactive"
+        )
+        label(for="statusInActive" class="form-check-label") Dừng hoạt động
+      div(class="form-group")
+        button(
+          type="submit"
+          class="btn btn-primary"
+        ) Cập nhật
+    script(type='application/javascript' src='/tinymce/tinymce.min.js')
+    //- // Script element sourcing the TinyMCE configuration
+    script(type='application/javascript' src='/admin/js/tinymceConfig.js')
+    script(src="/admin/js/category.js")
+  else
+    h1 Bạn không có quyền xem trang này, vui lòng liên hệ quản trị viên

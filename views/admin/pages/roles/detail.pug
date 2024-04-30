@@ -1,0 +1,20 @@
+extends ../../layouts/default.pug
+
+block main
+  if(role.permissions.includes("roles-view"))
+    h1(class="mb-4") Chi tiết vai trò
+    if(role)
+      div(
+        class="card"
+      )
+        span
+          strong Vai trò:  
+          | #{role.title}
+        span
+          strong Mô tả: 
+          | #{role.description}
+      if(role.permissions.includes("roles-edit"))
+        div(class="btn btn-outline-success" style="margin-top: 50px;")
+          a(href=`${prefixAdmin}/roles/edit/${role.id}`) Chỉnh sửa
+  else
+    h1 Bạn không có quyền xem trang này, vui lòng liên hệ quản trị viên

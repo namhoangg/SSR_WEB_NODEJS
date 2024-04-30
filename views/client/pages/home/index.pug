@@ -1,0 +1,19 @@
+extends ../../layouts/default.pug
+include ../../mixins/box-head.pug
+include ../../mixins/product-layout.pug
+include ../../mixins/alert.pug
+block main
+  +alert-success(3000)
+  +alert-error(3000)
+  .section-products-featured.my-5
+    .container
+      .row
+        .col-12
+          +box-head("Sản phẩm nổi bật")
+      +product-grid(productsFeatured)
+  .section-products-featured.my-5
+    .container
+      .row
+        .col-12
+          +box-head("Sản phẩm mới nhất")
+      +product-grid(productsNew)

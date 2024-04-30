@@ -1,0 +1,35 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+block main
+  if(role.permissions.includes("roles-edit"))
+    +alert-error(3000)
+    +alert-success(3000)
+    h1(class="mb-4") Chỉnh sửa nhóm quyền
+    form(
+      action=`${prefixAdmin}/roles/edit/${role.id}?_method=PATCH`
+      method="POST"
+    )
+      div(class="form-group")
+        label(for="title") Tiêu đề
+        input(
+          type="text"
+          class="form-control"
+          id="title"
+          name="title"
+          value=role.title
+          required
+        )
+      div(class="form-group")
+        label(for="desc") Mô tả
+        textarea(
+          class="form-control"
+          id="desc"
+          name="description"
+        ) #{role.description}
+      div(class="form-group")
+        button(
+          type="submit"
+          class="btn btn-primary"
+        ) Chỉnh sửa
+  else
+    h1 Bạn không có quyền xem trang này, vui lòng liên hệ quản trị viên

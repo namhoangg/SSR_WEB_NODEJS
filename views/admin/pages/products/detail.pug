@@ -1,0 +1,45 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+block main
+  if(role.permissions.includes("products-view"))
+    +alert-error(3000)
+    +alert-success(3000)
+
+    h1(class="mb-4") #{product.title}
+
+    div(class="mb-4") Giá: <b>#{product.price}$</b>
+
+    div(class="mb-4") Giảm giá: <b>#{product.discountPercentage}%</b>
+
+    div(class="mb-4") Số lượng: <b>#{product.stock}</b>
+    
+    div(class="mb-4")
+      img(
+        src=product.thumbnail 
+        style="width:150px;height:auto;"
+      )
+    div(class="mb-4") Danh mục:
+      if(product.categoryName)
+        span(class="mt-2") 
+          <b>!{product.categoryName}</b>
+      else 
+        span(class="mt-2") 
+          <b>Không có danh mục</b>
+    div(class="mb-4") Status:
+      if (product.status=="active")
+        span(class="badge badge-success") Hoạt động
+      else
+        span(class="badge badge-danger") Dừng hoạt động
+    div(class="mb-4") Mô tả: 
+      if(product.description)
+        span(class="mt-2") 
+          <b>!{product.description}</b>
+      else 
+        span(class="mt-2") 
+          <b>Không có mô tả</b>
+    if(role.permissions.includes("products-edit"))
+      a(
+        href=`${prefixAdmin}/products/edit/${product.id}`
+        class="btn btn-primary"
+      ) Chỉnh sửa
+    script(src="/admin/js/product.js")

@@ -1,0 +1,53 @@
+include ../mixins/sub-menu.pug
+header(class="header")
+    .container 
+        .row.align-item-center
+            .col-2
+                .inner-logo 
+                    a(href="/")
+                        img(src="/images/logo.jpg", alt="logo")
+            .col-5
+                form(
+                    action="/search"
+                    method="GET"
+                    form-search-client
+                )
+                    div(class="form-group d-flex mb-0")
+                        input(
+                            type="text"
+                            placeholder="Nhập từ khóa"
+                            class="form-control"
+                            name="keyword"
+                            value=keyword
+                            input-search-client
+                        )
+                        button(
+                            type="submit"
+                            class="btn btn-primary"
+                            button-search-client
+                        ) Tìm kiếm
+            .col-5
+                .inner-menu
+                    ul
+                        li
+                            a(href="/") Trang chủ
+                        li(class="sub-menu")
+                            -const pathProduct="/products"
+                            a(href="/products") Sản phẩm
+                            if(categories)
+                                +sub-menu(categories, pathProduct)
+                        li 
+                            a(href="/cart") 
+                                i.fa-solid.fa-cart-shopping
+                                span.badge.badge-sm.badge-danger.cart-quantity
+                                    | #{miniCart ? miniCart.totalQuantity : 0}
+                        if(!user)
+                            li 
+                                a(href="/user/login") Đăng nhập
+                            li
+                                a(href="/user/register") Đăng ký
+                        else 
+                            li 
+                                a(href="/user/info" class="btn btn-sm btn-danger") #{user.fullName}
+                            li
+                                a(href="/user/logout") Đăng xuất

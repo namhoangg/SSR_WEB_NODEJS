@@ -1,0 +1,53 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+block main 
+  +alert-success(5000)
+  +alert-error(5000)
+  h1 Trang tổng quan 
+  .row.mt-4 
+    .col-12 
+      .card.mb-4
+        .card-header Thông tin tài khoản
+        .card-body 
+          if(user.avatar)
+            img(
+              src=user.avatar
+              style="height:100px;margin-bottom:15px;"
+            )
+          if(user.fullName)
+            p Họ và tên: <b>#{user.fullName}</b>
+          if(user.email)
+            p Email: <b>#{user.email}</b>
+          if(user.phone)
+            p Số điện thoại: <b>#{user.phone}</b>
+          if(role.title)
+            p Vai trò: <b>#{role.title}</b>
+    .col-6
+      .card.mb-4
+        .card-header Danh mục sản phẩm 
+        .card-body
+          p Số lượng: <b>#{stats.category.total}</b>
+          p Hoạt động: <b>#{stats.category.active}</b>
+          p Dừng hoạt động: <b>#{stats.category.inactive}</b>
+    .col-6
+      .card.mb-4
+        .card-header Sản phẩm
+        .card-body
+          p Số lượng: <b>#{stats.product.total}</b>
+          p Hoạt động: <b>#{stats.product.active}</b>
+          p Dừng hoạt động: <b>#{stats.product.inactive}</b>
+    .col-6
+      .card.mb-4
+        .card-header Tài khoản admin
+        .card-body
+          p Số lượng: <b>#{stats.account.total}</b>
+          p Hoạt động: <b>#{stats.account.active}</b>
+          p Dừng hoạt động: <b>#{stats.account.inactive}</b>
+    .col-6
+      .card.mb-4
+        .card-header Tài khoản client
+        .card-body
+          p Số lượng: <b>#{stats.user.total}</b>
+          p Hoạt động: <b>#{stats.user.active}</b>
+          p Dừng hoạt động: <b>#{stats.user.inactive}</b>
+        

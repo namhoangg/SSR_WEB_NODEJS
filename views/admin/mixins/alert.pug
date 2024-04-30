@@ -1,0 +1,14 @@
+mixin alert-success(time)
+  - if(messages.success)
+      div(data-time=time alert class='alert-css') 
+        .alert.alert-success.alert-dismissible.fade.show(role='alert')
+          span #{messages.success}
+          button.close(type='button' data-dismiss='alert' aria-label='Close')
+            span(aria-hidden='true') &times;
+mixin alert-error(time)
+  - if(messages.error)
+      div(data-time=time alert class="alert-css") 
+        .alert.alert-danger.alert-dismissible.fade.show(role='alert' )
+          span #{messages.error}
+          button.close(type='button' data-dismiss='alert' aria-label='Close')
+            span(aria-hidden='true') &times;

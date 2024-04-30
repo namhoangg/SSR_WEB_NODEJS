@@ -1,0 +1,13 @@
+mixin pagination(page,limit,total)
+  div(class="table-footer")
+      div(class="table-length" id="table-length")
+        label(for="table-length-select") Số sản phẩm:
+        select(id="table-length-select")
+          option(value="5" selected=limit==5?true:false) 5
+          option(value="10" selected=limit==10?true:false) 10
+          option(value="15" selected=limit==15?true:false) 15
+          option(value="20" selected=limit==20?true:false) 20
+      div(class="table-pagination" id="table-pagination")
+        button( id="table-pagination-prev" class="button-pagination" data-page=page) Trang trước
+        input(class="table-pagination-text" class="page-pagination" value=page)
+        button( id="table-pagination-next" class="button-pagination" data-total-page=total data-page=page) Trang sau
