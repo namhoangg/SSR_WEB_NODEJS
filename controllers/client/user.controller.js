@@ -100,7 +100,7 @@ module.exports.forgotPasswordPost = async (req, res) => {
   await forgotPassword.save();
   const subject = "Nodejs App OTP - Quên mật khẩu";
   const html = `<h3>OTP để reset mật khẩu của bạn là: ${objectForgotPassword.otp}</h3>`;
-  sendMailHelper.sendMail(email, subject, html);
+  await sendMailHelper.sendMail(email, subject, html);
   res.redirect(`/user/password/otp?email=${email}`);
 };
 module.exports.otp = async (req, res) => {
