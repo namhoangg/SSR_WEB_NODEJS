@@ -90,6 +90,12 @@ module.exports.forgotPasswordPost = async (req, res) => {
     res.redirect("back");
     return;
   }
+  const checkForgotPassword = await ForgotPassword.findOne({ email: email });
+  if (checkForgotPassword) {
+    req.flash("error", "Vui lòng gửi lại sau 3 phút!");
+    res.redirect("back");
+    return;
+  }
   //neu ton tai gui otp qua email
   const objectForgotPassword = {
     email: email,
