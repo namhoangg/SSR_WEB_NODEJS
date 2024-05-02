@@ -1,12 +1,13 @@
 const nodemailer = require("nodemailer");
 
-module.exports.sendMail = (email, subject, html) => {
+module.exports.sendMail = async (email, subject, html) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASSWORD,
     },
+    port: 465,
   });
 
   const mailOptions = {
@@ -15,13 +16,18 @@ module.exports.sendMail = (email, subject, html) => {
     subject: subject,
     html: html,
   };
-
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error);
-    } else {
-      console.log("Email sent: " + info.response);
-      // do something useful
-    }
+  let respone = "fff";
+  await new Promise((resolve, reject) => {
+    // send mail
+    transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+      } else {
+        console.log(info);
+        resolve(info);
+      }
+    });
   });
+  return respone;
 };
